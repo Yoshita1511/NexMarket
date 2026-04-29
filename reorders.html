@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexMarket | Reorders</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        .reorders-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .order-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px dashed var(--glass-border);
+        }
+
+        .order-meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .order-meta strong {
+            color: white;
+        }
+
+        .order-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .order-total {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--accent-both);
+        }
+
+        .order-items {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .order-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .order-item-details {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .order-item-img {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .order-item-name {
+            font-weight: 500;
+        }
+
+        .order-item-qty {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .empty-history {
+            text-align: center;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed var(--glass-border);
+            border-radius: 16px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 600px) {
+            .order-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .order-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar dashboard-nav">
+        <div class="logo">NexMarket <span class="badge customer-badge">History</span></div>
+        <div class="nav-links" style="display: flex; align-items: center;">
+            <a href="javascript:history.back()"
+                style="font-weight: 600; text-decoration: none; color: var(--text-primary);">← Back</a>
+        </div>
+    </nav>
+
+    <main class="dashboard-container" style="padding-top: 6rem;">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;">Order History</h2>
+
+        <div class="reorders-container" id="reordersContainer">
+            <!-- Order history populated natively -->
+        </div>
+    </main>
+
+    <script src="reorders.js"></script>
+</body>
+
+</html>

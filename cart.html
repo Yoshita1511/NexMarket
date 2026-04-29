@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexMarket | Shopping Cart</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        .cart-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .cart-items-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-details {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .cart-item-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .cart-item-store {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .qty-control {
+            display: flex;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--accent-customer);
+        }
+
+        .qty-btn {
+            background: var(--accent-customer);
+            color: white;
+            border: none;
+            padding: 0.3rem 0.8rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            font-weight: bold;
+        }
+
+        .qty-btn:hover {
+            opacity: 0.8;
+            background: var(--accent-customer);
+        }
+
+        .checkout-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            position: sticky;
+            top: 100px;
+        }
+
+        .bill-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .bill-total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px dashed var(--glass-border);
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Payment Methods */
+        .payment-options {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-option.selected {
+            border-color: var(--accent-customer);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .payment-option:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .payment-icon {
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar dashboard-nav">
+        <div class="logo">NexMarket <span class="badge customer-badge">Checkout</span></div>
+
+        <div class="nav-links" style="display: flex; align-items: center;">
+            <a href="customer.html" style="font-weight: 600; text-decoration: none; color: var(--accent-both);">← Back
+                to Dashboard</a>
+        </div>
+    </nav>
+
+    <main class="dashboard-container" style="padding-top: 6rem;">
+        <h2 class="section-title">Your Cart</h2>
+
+        <div class="cart-container">
+            <!-- Left: Items & Delivery Details -->
+            <div style="display: flex; flex-direction: column; gap: 2rem;">
+                <!-- Delivery Address Form -->
+                <div class="cart-items-section">
+                    <h3 style="margin-bottom: 1.5rem;">Delivery Details</h3>
+                    <form id="deliveryForm" style="display: grid; gap: 1rem;">
+                        <input type="text" id="delName" placeholder="Full Name" required
+                            style="width: 100%; padding: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: white; box-sizing: border-box;">
+                        <input type="text" id="delPhone" placeholder="Phone Number" required
+                            style="width: 100%; padding: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: white; box-sizing: border-box;">
+                        <input type="text" id="delAddress" placeholder="Flat, House no., Building, Company, Apartment"
+                            required
+                            style="width: 100%; padding: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: white; box-sizing: border-box;">
+                        <input type="text" id="delArea" placeholder="Area, Street, Sector, Village" required
+                            style="width: 100%; padding: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: white; box-sizing: border-box;">
+                        <div style="display: flex; gap: 1rem;">
+                            <input type="text" id="delCity" placeholder="Town/City" required
+                                style="flex: 1; padding: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: white; box-sizing: border-box;">
+                            <input type="text" id="delPin" placeholder="Pincode" required
+                                style="width: 120px; padding: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: white; box-sizing: border-box;">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Items List -->
+                <div class="cart-items-section">
+                    <h3 style="margin-bottom: 1.5rem;">Order Summary</h3>
+                    <div id="emptyCartMessage"
+                        style="color: var(--text-secondary); text-align: center; padding: 2rem; display: none;">
+                        Your cart is currently empty.
+                    </div>
+                    <div id="cartItemsList">
+                        <!-- Cart items populated by JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Bill & Payment -->
+            <div class="checkout-section">
+                <h3>Bill Details</h3>
+                <div style="margin-top: 1.5rem;">
+                    <div class="bill-row">
+                        <span>Item Total</span>
+                        <span id="itemTotal">₹0.00</span>
+                    </div>
+                    <div class="bill-row">
+                        <span>Delivery Fee</span>
+                        <span id="deliveryFee">₹2.00</span>
+                    </div>
+                    <div class="bill-row">
+                        <span>Platform Fee</span>
+                        <span id="platformFee">₹0.50</span>
+                    </div>
+                    <div class="bill-total">
+                        <span>To Pay</span>
+                        <span id="grandTotal">₹0.00</span>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 2rem;">Payment Method</h3>
+                <div class="payment-options">
+                    <div class="payment-option selected" data-method="credit">
+                        <div class="payment-icon">💳</div>
+                        <div>
+                            <div style="font-weight: 600;">Credit / Debit Card</div>
+                            <div style="font-size: 0.8rem; color: var(--text-secondary);">Visa, Mastercard, RuPay</div>
+                        </div>
+                    </div>
+                    <div class="payment-option" data-method="upi">
+                        <div class="payment-icon">📱</div>
+                        <div>
+                            <div style="font-weight: 600;">Google Pay / PhonePe / UPI</div>
+                            <div style="font-size: 0.8rem; color: var(--text-secondary);">Direct bank transfer</div>
+                        </div>
+                    </div>
+                    <div class="payment-option" data-method="cod">
+                        <div class="payment-icon">💵</div>
+                        <div>
+                            <div style="font-weight: 600;">Pay on Delivery</div>
+                            <div style="font-size: 0.8rem; color: var(--text-secondary);">Cash or UPI at doorstep</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dynamic Payment UI Containers -->
+                <div id="creditCardForm"
+                    style="margin-top: 1.5rem; padding: 1.5rem; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 12px; display: block;">
+                    <h4 style="margin-bottom: 1rem;">Enter Card Details</h4>
+                    <input type="text" placeholder="Card Number"
+                        style="width: 100%; margin-bottom: 1rem; padding: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: white; box-sizing: border-box;">
+                    <div style="display: flex; gap: 1rem;">
+                        <input type="text" placeholder="MM/YY"
+                            style="flex: 1; padding: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: white;">
+                        <input type="password" placeholder="CVV"
+                            style="width: 80px; padding: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 8px; color: white;">
+                    </div>
+                </div>
+
+                <div id="upiQRCodeForm"
+                    style="margin-top: 1.5rem; padding: 1.5rem; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); border-radius: 12px; display: none; text-align: center;">
+                    <h4 style="margin-bottom: 1rem;">Scan to Pay</h4>
+                    <div
+                        style="background: white; padding: 10px; display: inline-block; border-radius: 12px; margin-bottom: 1rem;">
+                        <!-- Using a generic placeholder for a QR Code -->
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=nexmarket-payment"
+                            alt="UPI QR Code" style="width: 150px; height: 150px; display: block;">
+                    </div>
+                    <div style="font-weight: bold; font-size: 1.5rem; color: var(--accent-customer);"
+                        id="upiTotalAmount">₹0.00</div>
+                    <div style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 0.5rem;">Use GPay, PhonePe,
+                        or PayTM</div>
+                </div>
+
+                <button class="btn btn-customer" id="placeOrderBtn"
+                    style="width: 100%; margin-top: 2rem; padding: 1.2rem; font-size: 1.1rem;">Place Order</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="cart.js"></script>
+</body>
+
+</html>

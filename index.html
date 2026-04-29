@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexMarket | Dual-Role Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">NexMarket</div>
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How We Work</a>
+            <a href="#" class="btn-login" id="loginBtn">Login</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Empower Your Commerce Journey</h1>
+            <p>Whether you're looking to shop for unique items or sell your own products, NexMarket is the ultimate
+                platform designed for both customers and vendors.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-customer" id="btnCustomer">Shop as Customer</button>
+                <button class="btn btn-vendor" id="btnVendor">Sell as Vendor</button>
+            </div>
+            <p class="sub-text">Or <a href="#" id="linkBoth">do both</a> with a single unified account.</p>
+        </div>
+        <div class="hero-image">
+            <img src="assets/hero.png" alt="Marketplace Illustration" class="main-hero-illustration">
+            <div class="glass-card left-card">
+                <h3>🛍️ For Shoppers</h3>
+                <p>Discover products from authentic vendors worldwide.</p>
+            </div>
+            <div class="glass-card right-card">
+                <h3>🏪 For Sellers</h3>
+                <p>Set up your shop in minutes and reach millions.</p>
+            </div>
+        </div>
+    </header>
+
+    <section id="features" class="features">
+        <h2>Why Choose NexMarket?</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="icon">🔄</div>
+                <h3>Unified Account</h3>
+                <p>Switch seamlessly between buying and selling without needing multiple accounts.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🛡️</div>
+                <h3>Secure Transactions</h3>
+                <p>Our escrow system ensures that buyers get what they ordered and sellers get paid.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📈</div>
+                <h3>Growth Tools</h3>
+                <p>Advanced analytics and marketing tools for vendors to scale their business quickly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Sign up -->
+    <div class="modal" id="signupModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h2 id="modalTitle">Get Started</h2>
+            <form id="signupForm">
+                <input type="text" id="nameInput" placeholder="Full Name" required>
+                <input type="text" id="contactInput" placeholder="Phone No. / Email Address" required>
+                <input type="password" id="passwordInput" placeholder="Password" required>
+                <div class="role-selector" id="roleSelectorGroup">
+                    <label>
+                        <input type="radio" name="role" value="customer" id="radioCustomer" checked>
+                        <span>Customer</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="role" value="vendor" id="radioVendor">
+                        <span>Vendor</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="role" value="both" id="radioBoth">
+                        <span>Both</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-submit" id="submitBtn">Create Account</button>
+                <div id="authToggleText"
+                    style="margin-top: 1rem; text-align: center; color: var(--text-secondary); font-size: 0.9rem;">
+                    Already have an account? <a href="#" id="toggleAuthMode"
+                        style="color: var(--accent-customer); text-decoration: none; font-weight: 600;">Log In</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 NexMarket. All rights reserved.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

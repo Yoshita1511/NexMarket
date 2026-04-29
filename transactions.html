@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexMarket | Transactions</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        .transactions-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .transaction-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .transaction-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-both);
+        }
+
+        .transaction-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .transaction-store {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .transaction-meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .transaction-meta strong {
+            color: white;
+            font-weight: 600;
+        }
+
+        .transaction-amount-wrap {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem;
+        }
+
+        .transaction-amount {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-customer);
+        }
+
+        .transaction-status {
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid #10b981;
+            display: inline-block;
+        }
+
+        .empty-history {
+            text-align: center;
+            padding: 4rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed var(--glass-border);
+            border-radius: 16px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 600px) {
+            .transaction-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.5rem;
+            }
+
+            .transaction-amount-wrap {
+                align-items: flex-start;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar dashboard-nav">
+        <div class="logo">NexMarket <span class="badge customer-badge">Transactions</span></div>
+        <div class="nav-links" style="display: flex; align-items: center;">
+            <a href="javascript:history.back()"
+                style="font-weight: 600; text-decoration: none; color: var(--text-primary);">← Back</a>
+        </div>
+    </nav>
+
+    <main class="dashboard-container" style="padding-top: 6rem;">
+        <h2 class="section-title" style="text-align: center; margin-bottom: 2rem;">Transaction History</h2>
+
+        <div class="transactions-container" id="transactionsContainer">
+            <!-- Transactions populated natively -->
+        </div>
+    </main>
+
+    <script src="transactions.js"></script>
+</body>
+
+</html>

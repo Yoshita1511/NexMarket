@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexMarket | Vendor Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar dashboard-nav">
+        <div class="logo">NexMarket <span class="badge vendor-badge">Vendor Mode</span></div>
+        <div class="nav-links" style="display: flex; align-items: center;">
+            <a href="customer.html" id="switchToCustomer" style="display: none; margin-right: 1.5rem;">Switch to
+                Customer</a>
+            <a href="profile.html" class="nav-icon-link" title="Profile"
+                style="font-size: 1.5rem; text-decoration: none; margin-right: 1.5rem;">👤</a>
+            <a href="index.html" class="btn-login" id="logoutBtn">Logout</a>
+        </div>
+    </nav>
+
+    <main class="dashboard-container">
+        <!-- Store Setup Section -->
+        <section class="dashboard-section store-setup card-glass">
+            <div class="doodle-header">
+                <div>
+                    <h2>🏪 Set Up Your Store</h2>
+                    <p class="section-desc">Create your store profile to start selling products in your city.</p>
+                </div>
+                <img src="assets/vendor-doodle.png" alt="Vendor Icon" class="doodle-icon">
+            </div>
+
+            <!-- Added View Mode for Existing Stores -->
+            <div id="storeViewContainer"
+                style="display: none; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--glass-border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;">
+                <div style="display: flex; gap: 1.5rem; align-items: flex-start;">
+                    <img id="viewStoreImage" src="assets/default-product.png" alt="Store Image"
+                        style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--glass-border);">
+                    <div style="flex: 1;">
+                        <h3 id="viewStoreName" style="margin: 0 0 0.5rem 0; font-size: 1.5rem; color: white;">Store Name
+                        </h3>
+                        <p id="viewStoreDetails"
+                            style="margin: 0 0 1rem 0; color: var(--text-secondary); font-size: 0.9rem;">Category • City
+                        </p>
+                        <p id="viewStoreDesc" style="margin: 0; line-height: 1.5; color: var(--text-primary);">
+                            Description goes here.</p>
+                    </div>
+                </div>
+                <div
+                    style="margin-top: 1.5rem; text-align: right; border-top: 1px dashed var(--glass-border); padding-top: 1rem;">
+                    <button class="btn btn-outline" id="btnEditStore">Edit Details</button>
+                </div>
+            </div>
+
+            <div id="storeEditContainer">
+                <form id="storeForm" class="dashboard-form">
+                    <div class="form-group">
+                        <label>Store Name</label>
+                        <input type="text" id="storeName" placeholder="e.g. Fresh Bites Bakery" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Store Category</label>
+                        <select id="storeCategory" class="form-select" required>
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="Food">Food</option>
+                            <option value="Grocery">Grocery</option>
+                            <option value="Vegetables">Vegetables</option>
+                            <option value="Fruits">Fruits</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Clothing">Clothing</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Store Image (Optional)</label>
+                        <div class="store-image-options">
+                            <label class="file-upload-label">
+                                <span id="storeUploadText">📁 Upload Image</span>
+                                <input type="file" id="storeImageInput" accept="image/*" class="file-input">
+                            </label>
+                            <button type="button" class="btn btn-outline ai-btn" id="btnGenAIStore">✨ AI
+                                Generate</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>City / Location</label>
+                        <input type="text" id="storeCity" placeholder="e.g. New York, Mumbai, London" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Store Description</label>
+                        <textarea id="storeDesc" placeholder="Describe what you sell..." rows="3" required></textarea>
+                    </div>
+                    <!-- Moved form buttons into a flex row to support a cancel option during edit -->
+                    <div style="display: flex; gap: 1rem;">
+                        <button type="submit" id="submitStoreBtn" class="btn btn-vendor">Save Store Details</button>
+                        <button type="button" id="btnCancelEdit" class="btn btn-outline"
+                            style="display: none;">Cancel</button>
+                    </div>
+                </form>
+            </div>
+            <div id="storeStatus" class="success-message" style="display: none; margin-top: 1rem;">Store details saved
+                successfully!</div>
+        </section>
+
+        <!-- Manage Items Section -->
+        <section class="dashboard-section manage-items card-glass" id="itemsSection"
+            style="opacity: 0.5; pointer-events: none;">
+            <h2>📦 Manage Inventory</h2>
+            <p class="section-desc">Add items you want to sell. (Save store details first)</p>
+
+            <form id="itemForm" class="dashboard-form item-upload-form">
+                <div class="form-row">
+                    <input type="text" id="itemName" placeholder="Item Name (e.g. Croissant)" required>
+                    <input type="number" id="itemPrice" placeholder="Price (Rs.)" step="0.01" required>
+                </div>
+                <div class="file-upload-wrapper">
+                    <label for="itemImage" class="file-upload-label">
+                        <span id="uploadText">📷 Upload Product Picture (Optional)</span>
+                        <input type="file" id="itemImage" accept="image/*" class="file-input">
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-both">Add Item</button>
+            </form>
+
+            <div id="itemSuggestions" style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                <!-- Suggestions will be injected here -->
+            </div>
+
+            <div class="items-list">
+                <h3>Your Items</h3>
+                <ul id="itemList" class="inventory-list">
+                    <li class="empty-state">No items added yet.</li>
+                </ul>
+            </div>
+
+            <!-- Complete and Publish Section -->
+            <div
+                style="margin-top: 2rem; padding-top: 2rem; border-top: 1px dashed rgba(255,255,255,0.2); text-align: center;">
+                <p style="color: var(--text-secondary); margin-bottom: 1rem;">Done adding items? Save this store to your
+                    profile.</p>
+                <button type="button" class="btn btn-customer" id="btnPublishStore"
+                    style="padding: 0.8rem 2rem; font-size: 1.1rem; border-radius: 30px;">Complete & Save Store</button>
+                <div id="publishStatus" class="success-message" style="display: none; margin-top: 1rem;">Store
+                    successfully published to your profile!</div>
+            </div>
+        </section>
+
+        <!-- Create Another Store Promotional Banner -->
+        <section id="createAnotherStoreBanner"
+            style="display: none; margin-top: 4rem; margin-bottom: 2rem; padding: 3rem 2rem; background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(16, 185, 129, 0.1)); border-radius: 20px; border: 1px dashed rgba(255,255,255,0.2); text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🏬</div>
+            <h2 style="font-size: 2rem; margin-bottom: 0.5rem; color: white;">Expand your business</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem;">Ready to open another store
+                location or sell under a different category?</p>
+            <button class="btn btn-vendor" style="font-size: 1.1rem; padding: 0.8rem 2.5rem; border-radius: 30px;"
+                onclick="createNewStore()">Create Another Store</button>
+        </section>
+
+    </main>
+
+    <script src="vendor.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexMarket | Customer Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar dashboard-nav">
+        <div class="logo">NexMarket <span class="badge customer-badge">Customer Mode</span></div>
+        <div class="location-header">
+            <div class="location-icon">📍</div>
+            <div class="location-text">
+                <span class="location-title">Delhi</span>
+                <span class="location-desc">Delhi, India <span class="dropdown-arrow">▼</span></span>
+            </div>
+        </div>
+
+        <div class="nav-search-container">
+            <form id="searchForm" class="search-box nav-search nav-search-thin">
+                <input type="text" id="searchCity" placeholder="Search store" required>
+                <button type="submit" class="btn btn-customer" style="display: none;">Search</button>
+            </form>
+        </div>
+
+        <div class="nav-links" style="display: flex; align-items: center;">
+            <a href="vendor.html" id="switchToVendor" style="display: none;">Switch to Vendor</a>
+            <a href="cart.html" class="nav-icon-link" id="cartBtn" title="Cart"
+                style="font-size: 1.5rem; text-decoration: none; margin-left: 1.5rem;">🛒</a>
+
+            <div class="profile-dropdown-wrapper" id="profileDropdownWrapper"
+                style="position: relative; margin-left: 0.5rem;">
+                <a href="#" class="nav-icon-link" id="profileBtn" title="Profile"
+                    style="font-size: 1.5rem; text-decoration: none;">👤</a>
+                <div class="profile-dropdown-content" id="profileDropdownContent">
+                    <a href="profile.html">Profile</a>
+                    <a href="wishlist.html">Wishlist</a>
+                    <a href="reorders.html">Reorders</a>
+                    <a href="mostly-shopped.html">Mostly Shopped</a>
+                    <a href="transactions.html">Transaction</a>
+                    <div style="border-top: 1px solid var(--glass-border); margin: 4px 0;"></div>
+                    <a href="index.html" id="logoutBtn" style="color: #ef4444; font-weight: 600;">Logout</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-container swiggy-layout">
+
+        <!-- Category Mind Map Grid -->
+        <section class="category-grid-section">
+            <h3 class="section-title">What's on your mind?</h3>
+            <div class="category-circles-track" id="categoryGrid">
+                <div class="category-circle active" data-category="all">
+                    <div class="circle-img">🌟</div>
+                    <span>All</span>
+                </div>
+                <div class="category-circle" data-category="food">
+                    <div class="circle-img">🍔</div>
+                    <span>Food</span>
+                </div>
+                <div class="category-circle" data-category="grocery">
+                    <div class="circle-img">🛒</div>
+                    <span>Grocery</span>
+                </div>
+                <div class="category-circle" data-category="vegetables">
+                    <div class="circle-img">🥦</div>
+                    <span>Veggies</span>
+                </div>
+                <div class="category-circle" data-category="fruits">
+                    <div class="circle-img">🍎</div>
+                    <span>Fruits</span>
+                </div>
+                <div class="category-circle" data-category="electronics">
+                    <div class="circle-img">💻</div>
+                    <span>Tech</span>
+                </div>
+                <div class="category-circle" data-category="clothing">
+                    <div class="circle-img">👕</div>
+                    <span>Fashion</span>
+                </div>
+                <div class="category-circle" data-category="other">
+                    <div class="circle-img">📦</div>
+                    <span>Other</span>
+                </div>
+            </div>
+        </section>
+
+        <hr class="section-divider">
+
+        <!-- Main Discovery Section -->
+        <section class="results-section">
+            <h3 id="resultsTitle" class="section-title">Stores to explore</h3>
+            <div id="vendorResults" class="vendor-grid">
+                <!-- Regular Results dynamically populated -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal for Viewing Store Products -->
+    <div class="modal" id="storeModal">
+        <div class="modal-content large-modal">
+            <span class="close-btn" id="closeStoreModal">&times;</span>
+            <div class="store-header" id="modalStoreHeader">
+                <h2 id="modalStoreName">Store Name</h2>
+                <p id="modalStoreDesc">Description</p>
+            </div>
+            <div class="products-grid" id="modalProductsGrid">
+                <!-- Product Items -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Location Search -->
+    <div class="modal" id="locationModal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeLocationModal">&times;</span>
+            <div class="store-header" style="border-bottom: none; padding-bottom: 0;">
+                <h2>Select Location</h2>
+                <p>Choose a city to explore local vendors</p>
+            </div>
+            <form id="locationSearchForm" style="margin-top: 1rem;">
+                <input type="text" id="locationInput" placeholder="Enter city name (e.g., Delhi, Mumbai)" required
+                    style="width: 100%;">
+                <button type="submit" class="btn btn-customer" style="width: 100%;">Set Location</button>
+            </form>
+
+            <div style="margin-top: 2rem;">
+                <h4 style="margin-bottom: 1rem; color: var(--text-secondary);">Popular Cities</h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    <span class="tag"
+                        style="padding: 0.5rem 1rem; background: rgba(59, 130, 246, 0.1); border-radius: 20px; color: var(--accent-customer); cursor: pointer;"
+                        onclick="document.getElementById('locationInput').value='Delhi'">Delhi</span>
+                    <span class="tag"
+                        style="padding: 0.5rem 1rem; background: rgba(59, 130, 246, 0.1); border-radius: 20px; color: var(--accent-customer); cursor: pointer;"
+                        onclick="document.getElementById('locationInput').value='Mumbai'">Mumbai</span>
+                    <span class="tag"
+                        style="padding: 0.5rem 1rem; background: rgba(59, 130, 246, 0.1); border-radius: 20px; color: var(--accent-customer); cursor: pointer;"
+                        onclick="document.getElementById('locationInput').value='Bangalore'">Bangalore</span>
+                    <span class="tag"
+                        style="padding: 0.5rem 1rem; background: rgba(59, 130, 246, 0.1); border-radius: 20px; color: var(--accent-customer); cursor: pointer;"
+                        onclick="document.getElementById('locationInput').value='Pune'">Pune</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="customer.js"></script>
+</body>
+
+</html>
